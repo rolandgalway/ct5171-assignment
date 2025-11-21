@@ -39,12 +39,27 @@ a, button {
 }
 
 .btn-secondary {
-    background: #eaeaea;
+    display: inline-block;
+    padding: 12px 20px;
+    background: #f8f9fa;
     color: #333 !important;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    transition: all 0.25s ease;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
 }
 
 .btn-secondary:hover {
-    background: #d5d5d5;
+    background: #f1f5f9;
+    border-color: #c5ccd3;
+    transform: translateY(-2px);
+}
+
+.btn-secondary:active {
+    transform: translateY(0);
+    background: #e5e7eb;
 }
 
 label {
@@ -64,7 +79,23 @@ input[type="text"], textarea {
 
 button[type="submit"] {
     width: 100%;
-    margin-top: 10px;
+    margin-top: 15px;
+    padding: 14px;
+    background: linear-gradient(135deg, #007bff, #0064d2);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease-in-out;
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.25);
+}
+
+button[type="submit"]:hover {
+    background: linear-gradient(135deg, #0069d9, #005bbf);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0, 123, 255, 0.35);
 }
 
 ul {
