@@ -87,20 +87,21 @@ public class PetitionController {
         return "search";
     }
 
-    @GetMapping("/results")
-    public String searchResults(@RequestParam String query, Model model) {
+    @GetMapping("/search/results")
+    public String searchResults(@RequestParam String keyword, Model model) {
 
-        String lower = query.toLowerCase();
         List<Petition> results = new ArrayList<>();
 
         for (Petition p : petitions) {
-            if (p.getTitle().toLowerCase().contains(lower) ||
-                    p.getDescription().toLowerCase().contains(lower)) {
+            if (p.getTitle().toLowerCase().contains(keyword.toLowerCase()) ||
+                    p.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
                 results.add(p);
             }
         }
 
         model.addAttribute("results", results);
+        model.addAttribute("keyword", keyword);
+
         return "results";
     }
 }
