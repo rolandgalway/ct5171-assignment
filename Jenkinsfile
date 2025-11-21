@@ -2,46 +2,71 @@ pipeline {
     agent any
 
     environment {
-        DEPLOY_USER = 'deploy'
-        DEPLOY_HOST = '16.171.170.116'
-        DEPLOY_PATH = '/opt/tomcat10/webapps'
+        DEPLOY_USER = "deploy"
+        EC2_HOST = "16.171.170.116"
+        WAR_NAME = "rolandspetitions.war"
+        REMOTE_TOMCAT = "/opt/tomcat10/webapps"
     }
 
     stages {
-        stage('Checkout') {
+
+        stage('Get Code from GitHub') {
             steps {
                 git branch: 'main', url: 'https://github.com/rolandgalway/ct5171-assignment.git'
             }
         }
 
-        stage('Build WAR') {
+        stage('Build') {
             steps {
-                sh 'mvn clean package -DskipTests'
+                sh 'mvn clean compile'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                sh 'mvn test'
+            }
+        }
+
+        stage('Package WAR') {
+            steps {
+                sh 'mvn package -DskipTests'
             }
         }
 
         stage('Archive WAR') {
             steps {
-                archiveArtifacts artifacts: 'target/rolandspetitions.war', allowEmptyArchive: false
+                archiveArtifacts artifacts: "target/${WAR_NAME}", allowEmptyArchive: false
             }
         }
 
-        stage('Deploy to Tomcat') {
+        stage('Approval Before Deployment') {
             steps {
-                sshagent(['tomcat-deploy-key']) {
-                    sh '''
-                        echo "==== Removing old deployment ===="
-                        ssh -o StrictHostKeyChecking=no ${DEPLOY_USER}@${DEPLOY_HOST} "sudo rm -rf ${DEPLOY_PATH}/rolandspetitions ${DEPLOY_PATH}/rolandspetitions.war"
+                script {
+                    timeout(time: 5, unit: 'MINUTES') {
+                        input message: "Deploy ${WAR_NAME} to production EC2?"
+                    }
+                }
+            }
+        }
 
-                        echo "==== Copying new WAR to EC2 ===="
-                        scp -o StrictHostKeyChecking=no target/rolandspetitions.war ${DEPLOY_USER}@${DEPLOY_HOST}:/tmp/
+        stage('Deploy to Tomcat on EC2') {
+            steps {
+                sshagent(['deploy']) {
+                    sh """
+                        echo ==== Removing old deployment ====
+                        ssh -o StrictHostKeyChecking=no ${DEPLOY_USER}@${EC2_HOST} sudo rm -rf ${REMOTE_TOMCAT}/rolandspetitions ${REMOTE_TOMCAT}/${WAR_NAME}
 
-                        echo "==== Moving WAR into Tomcat directory (with proper permissions) ===="
-                        ssh -o StrictHostKeyChecking=no ${DEPLOY_USER}@${DEPLOY_HOST} "sudo mv /tmp/rolandspetitions.war ${DEPLOY_PATH}/ && sudo chown tomcat:tomcat ${DEPLOY_PATH}/rolandspetitions.war"
+                        echo ==== Uploading new WAR ====
+                        scp -o StrictHostKeyChecking=no target/${WAR_NAME} ${DEPLOY_USER}@${EC2_HOST}:/tmp/
 
-                        echo "==== Restarting Tomcat ===="
-                        ssh -o StrictHostKeyChecking=no ${DEPLOY_USER}@${DEPLOY_HOST} "sudo systemctl restart tomcat"
-                    '''
+                        echo ==== Moving WAR to Tomcat folder ====
+                        ssh -o StrictHostKeyChecking=no ${DEPLOY_USER}@${EC2_HOST} sudo mv /tmp/${WAR_NAME} ${REMOTE_TOMCAT}/
+                        ssh -o StrictHostKeyChecking=no ${DEPLOY_USER}@${EC2_HOST} sudo chown tomcat:tomcat ${REMOTE_TOMCAT}/${WAR_NAME}
+
+                        echo ==== Restarting Tomcat ====
+                        ssh -o StrictHostKeyChecking=no ${DEPLOY_USER}@${EC2_HOST} sudo systemctl restart tomcat
+                    """
                 }
             }
         }
@@ -52,7 +77,7 @@ pipeline {
             echo 'Deployment successful!'
         }
         failure {
-            echo 'Deployment failed. Check Jenkins logs for details.'
+            echo 'Pipeline failed - check logs.'
         }
     }
 }
