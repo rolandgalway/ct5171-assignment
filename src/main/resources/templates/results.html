@@ -7,9 +7,15 @@
 
 <h1>Search Results</h1>
 
-<ul>
-    <li th:each="p : ${results}">
-        <a th:href="@{|/petition/${p.id}|}" th:text="${p.title}"></a>
+<!-- If no results -->
+<div th:if="${#lists.isEmpty(results)}">
+    <p><strong>No petitions found for your search.</strong></p>
+</div>
+
+<!-- If results exist -->
+<ul th:if="${!#lists.isEmpty(results)}">
+    <li th:each="p, iter : ${results}">
+        <a th:href="@{|/petition/${iter.index}|}" th:text="${p.title}"></a>
     </li>
 </ul>
 
