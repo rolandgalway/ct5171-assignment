@@ -12,12 +12,11 @@ import java.util.List;
 @Controller
 public class PetitionController {
 
-    private List<Petition> petitions = new ArrayList<>();
+    private final List<Petition> petitions = new ArrayList<>();
 
-    // Preload sample petitions
     public PetitionController() {
-        petitions.add(new Petition(1,"Save the Forests", "We must protect our forests from deforestation."));
-        petitions.add(new Petition(2, "Better Public Transport", "Improve buses and trains for everyone."));
+        petitions.add(new Petition("Save the Forests", "We must protect our forests from deforestation."));
+        petitions.add(new Petition("Better Public Transport", "Improve buses and trains for everyone."));
     }
 
     @GetMapping("/")
@@ -35,8 +34,7 @@ public class PetitionController {
                                  @RequestParam String description,
                                  Model model) {
 
-        Petition petition = new Petition(petitions.size() + 1, title, description);
-        petitions.add(petition);
+        petitions.add(new Petition(title, description));
 
         model.addAttribute("title", title);
         model.addAttribute("description", description);
@@ -47,14 +45,21 @@ public class PetitionController {
     @GetMapping("/petitions")
     public String listPetitions(Model model) {
         model.addAttribute("petitions", petitions);
-        return "petitions";
+        return "all";
     }
 
     @GetMapping("/petition/{index}")
     public String viewPetition(@PathVariable int index, Model model) {
+
+        if (index < 0 || index >= petitions.size()) {
+            return "notfound";
+        }
+
         Petition petition = petitions.get(index);
+
         model.addAttribute("petition", petition);
         model.addAttribute("index", index);
+
         return "view";
     }
 
@@ -63,6 +68,10 @@ public class PetitionController {
                                @RequestParam String name,
                                @RequestParam String email,
                                Model model) {
+
+        if (index < 0 || index >= petitions.size()) {
+            return "notfound";
+        }
 
         Petition petition = petitions.get(index);
         petition.addSignature(new Signature(name, email));

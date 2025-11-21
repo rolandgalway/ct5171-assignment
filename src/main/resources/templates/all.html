@@ -7,8 +7,9 @@
 <h1>All Petitions</h1>
 
 <ul>
-    <li th:each="p : ${petitions}">
-        <a th:href="@{|/petition/${p.id}|}" th:text="${p.title}"></a>
+    <li th:each="p, iter : ${petitions}">
+        <a th:href="@{|/petition/${iter.index}|}"
+           th:text="${p.title}">Petition</a>
     </li>
 </ul>
 
