@@ -2,8 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title th:text="${petition.title}">Petition</title>
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
+<div class="container">
 
 <h1 th:text="${petition.title}"></h1>
 <p th:text="${petition.description}"></p>
@@ -31,7 +33,7 @@
 </form>
 
 <br>
-<a th:href="@{/petitions}">Back to All Petitions</a>
-
+<a class="btn-secondary" th:href="@{/petitions}">Back to All Petitions</a>
+</div>
 </body>
 </html>

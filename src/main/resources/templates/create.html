@@ -2,8 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Create Petition</title>
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
+<div class="container">
+
 <h1>Create a New Petition</h1>
 
 <form th:action="@{/submit}" method="post">
@@ -17,7 +20,7 @@
 </form>
 
 <br>
-<a th:href="@{/}">Back to Home</a>
-
+<a class="btn-secondary" th:href="@{/}">Back to Home</a>
+</div>
 </body>
 </html>

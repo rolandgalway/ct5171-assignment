@@ -2,19 +2,21 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>All Petitions</title>
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
+<div class="container">
 <h1>All Petitions</h1>
 
 <ul>
-    <li th:each="p, iter : ${petitions}">
+    <li class="petition-title" th:each="p, iter : ${petitions}">
         <a th:href="@{|/petition/${iter.index}|}"
            th:text="${p.title}">Petition</a>
     </li>
 </ul>
 
 <br>
-<a th:href="@{/}">Back to Home</a>
-
+<a class="btn-secondary" th:href="@{/}">Back to Home</a>
+</div>
 </body>
 </html>

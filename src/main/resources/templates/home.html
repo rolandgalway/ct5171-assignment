@@ -2,16 +2,19 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Roland's Petitions</title>
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
+<div class="container">
 <h1>Welcome to Roland's Petitions</h1>
 <h2>Test update of the homepage</h2>
 
 <p>Create and share petitions easily.</p>
 
-<a th:href="@{/petitions}">View All the Petitions</a><br>
-<a th:href="@{/search}">Search Petitions</a><br>
-<a th:href="@{/create}">Create a Petition</a>
+<a class="btn" th:href="@{/create}">Create a Petition</a>
+<a class="btn-secondary" th:href="@{/petitions}">View All the Petitions</a><br>
+<a class="btn-secondary" th:href="@{/search}">Search Petitions</a><br>
 
+</div>
 </body>
 </html>

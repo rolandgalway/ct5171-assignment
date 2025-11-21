@@ -2,8 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Sign Petition</title>
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
+<div class="container">
 
 <h1 th:text="${petition.title}"></h1>
 
@@ -18,8 +20,8 @@
 </form>
 
 <br>
-<a th:href="@{|/petition/${petition.id}|}">Back to Petition</a><br>
-<a th:href="@{/}">Back to Home</a>
-
+<a class="btn" th:href="@{|/petition/${petition.id}|}">Back to Petition</a><br>
+<a class="btn-secondary" th:href="@{/}">Back to Home</a>
+</div>
 </body>
 </html>

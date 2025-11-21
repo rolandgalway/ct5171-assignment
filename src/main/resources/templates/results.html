@@ -2,8 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Search Results</title>
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
+<div class="container">
 
 <h1>Search Results</h1>
 
@@ -20,8 +22,8 @@
 </ul>
 
 <br>
-<a th:href="@{/search}">Search Again</a><br>
-<a th:href="@{/}">Back to Home</a>
-
+<a class="btn" th:href="@{/search}">Search Again</a><br>
+<a class="btn-secondary" th:href="@{/}">Back to Home</a>
+</div>
 </body>
 </html>
