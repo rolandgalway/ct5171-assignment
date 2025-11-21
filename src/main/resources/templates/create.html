@@ -6,7 +6,7 @@
 <body>
 <h1>Create a New Petition</h1>
 
-<form action="/submit" method="post">
+<form th:action="@{/submit}" method="post">
     <label>Petition Title:</label><br>
     <input type="text" name="title" required><br><br>
 
@@ -17,7 +17,7 @@
 </form>
 
 <br>
-<a href="/">Back to Home</a>
+<a th:href="@{/}">Back to Home</a>
 
 </body>
 </html>
