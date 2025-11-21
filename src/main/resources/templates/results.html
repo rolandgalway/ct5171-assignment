@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Search Results</title>
-    <link rel="stylesheet" th:href="@{/style.css}">
+    <link rel="stylesheet" th:href="@{/style.css(v=${T(java.lang.System).currentTimeMillis()})}">
 </head>
 <body>
 <div class="container">
@@ -15,11 +15,13 @@
 </div>
 
 <!-- If results exist -->
-<ul th:if="${!#lists.isEmpty(results)}">
-    <li th:each="p, iter : ${results}">
-        <a th:href="@{|/petition/${iter.index}|}" th:text="${p.title}"></a>
-    </li>
-</ul>
+    <ul>
+        <li class="petition-title" th:each="p, iter : ${results}">
+            <a th:href="@{|/petition/${indexes[iter.index]}|}"
+               th:text="${p.title}">
+            </a>
+        </li>
+    </ul>
 
 <br>
 <a class="btn" th:href="@{/search}">Search Again</a><br>

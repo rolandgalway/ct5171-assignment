@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Create Petition</title>
-    <link rel="stylesheet" th:href="@{/style.css}">
+    <link rel="stylesheet" th:href="@{/style.css(v=${T(java.lang.System).currentTimeMillis()})}">
 </head>
 <body>
 <div class="container">

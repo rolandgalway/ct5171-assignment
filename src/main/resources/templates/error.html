@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Error</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f8f9fa;
+            color: #333;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        .error-card {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 14px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+            max-width: 420px;
+        }
+
+        h1 {
+            font-size: 42px;
+            margin-bottom: 10px;
+            color: #dc3545;
+        }
+
+        p {
+            font-size: 16px;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 22px;
+            background: #007bff;
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 15px;
+            transition: 0.2s ease-in-out;
+        }
+
+        .btn:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="error-card">
+    <h1 th:text="${status}">Error</h1>
+    <p th:text="${error}">Something went wrong.</p>
+
+    <a th:href="@{/}" class="btn">Go Back Home</a>
+</div>
+
+</body>
+</html>

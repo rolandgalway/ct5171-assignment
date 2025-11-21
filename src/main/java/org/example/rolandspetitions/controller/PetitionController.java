@@ -90,16 +90,22 @@ public class PetitionController {
     @GetMapping("/search/results")
     public String searchResults(@RequestParam String keyword, Model model) {
 
+        List<Integer> indexes = new ArrayList<>();
         List<Petition> results = new ArrayList<>();
 
-        for (Petition p : petitions) {
+        for (int i = 0; i < petitions.size(); i++) {
+            Petition p = petitions.get(i);
+
             if (p.getTitle().toLowerCase().contains(keyword.toLowerCase()) ||
                     p.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+
                 results.add(p);
+                indexes.add(i); // store the REAL index!
             }
         }
 
         model.addAttribute("results", results);
+        model.addAttribute("indexes", indexes);
         model.addAttribute("keyword", keyword);
 
         return "results";
