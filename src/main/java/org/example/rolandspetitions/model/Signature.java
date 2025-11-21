@@ -1,7 +1,6 @@
 package org.example.rolandspetitions.model;
 
 public class Signature {
-
     private String name;
     private String email;
 
@@ -10,6 +9,11 @@ public class Signature {
         this.email = email;
     }
 
-    public String getName() { return name; }
-    public String getEmail() { return email; }
+    public String getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
 }
