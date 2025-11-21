@@ -77,6 +77,15 @@ input[type="text"], textarea {
     font-size: 15px;
 }
 
+input[type="email"] {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    font-size: 15px;
+}
+
 button[type="submit"] {
     width: 100%;
     margin-top: 15px;
