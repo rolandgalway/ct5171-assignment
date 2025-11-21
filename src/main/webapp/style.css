@@ -39,12 +39,27 @@ a, button {
 }
 
 .btn-secondary {
-    background: #eaeaea;
+    display: inline-block;
+    padding: 12px 20px;
+    background: #f8f9fa;
     color: #333 !important;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    transition: all 0.25s ease;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
 }
 
 .btn-secondary:hover {
-    background: #d5d5d5;
+    background: #f1f5f9;
+    border-color: #c5ccd3;
+    transform: translateY(-2px);
+}
+
+.btn-secondary:active {
+    transform: translateY(0);
+    background: #e5e7eb;
 }
 
 label {
