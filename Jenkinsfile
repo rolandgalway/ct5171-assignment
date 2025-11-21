@@ -52,7 +52,7 @@ pipeline {
 
         stage('Deploy to Tomcat on EC2') {
             steps {
-                sshagent(['deploy']) {
+                sshagent(['tomcat-deploy-key']) {
                     sh """
                         echo ==== Removing old deployment ====
                         ssh -o StrictHostKeyChecking=no ${DEPLOY_USER}@${EC2_HOST} sudo rm -rf ${REMOTE_TOMCAT}/rolandspetitions ${REMOTE_TOMCAT}/${WAR_NAME}
