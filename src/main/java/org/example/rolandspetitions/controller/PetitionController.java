@@ -16,8 +16,8 @@ public class PetitionController {
 
     // Preload sample petitions
     public PetitionController() {
-        petitions.add(new Petition("Save the Forests", "We must protect our forests from deforestation."));
-        petitions.add(new Petition("Better Public Transport", "Improve buses and trains for everyone."));
+        petitions.add(new Petition(1,"Save the Forests", "We must protect our forests from deforestation."));
+        petitions.add(new Petition(2, "Better Public Transport", "Improve buses and trains for everyone."));
     }
 
     @GetMapping("/")
@@ -35,7 +35,7 @@ public class PetitionController {
                                  @RequestParam String description,
                                  Model model) {
 
-        Petition petition = new Petition(title, description);
+        Petition petition = new Petition(petitions.size() + 1, title, description);
         petitions.add(petition);
 
         model.addAttribute("title", title);
