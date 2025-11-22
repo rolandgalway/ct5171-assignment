@@ -1,4 +1,4 @@
-# Roland’s Petitions – CT5171 Continuous Delivery Assignment
+# Roland’s Petitions – CT5171 Cloud DevOps Assignment
 
 This repository contains my submission for the **CT5171 – Cloud DevOps** module.  
 It includes the full web application and CI/CD pipeline using **GitHub**, **Jenkins**, **Maven**, **Tomcat**, and **Amazon EC2**.
